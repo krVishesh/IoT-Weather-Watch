@@ -20,6 +20,7 @@ def load_user(user_id):
 def signup():
     data = request.json
     username = data.get('username')
+    email = data.get('email')
     password = data.get('password')
 
     # Check if username already exists
@@ -27,7 +28,7 @@ def signup():
         return jsonify({"message": "Username already exists"}), 400
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
-    new_user = UserData(username=username, password_hash=hashed_password)
+    new_user = UserData(username=username, email=email, password_hash=hashed_password)
     db.session.add(new_user)
     db.session.commit()
 
