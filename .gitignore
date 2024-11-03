@@ -127,3 +127,17 @@ __pycache__/
 
 # Ignore node_modules directory
 node_modules/
+
+# Editor and IDE specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Operating system specific files
+.DS_Store
+Thumbs.db
+
+# Log files
+*.log
+*.log.*
