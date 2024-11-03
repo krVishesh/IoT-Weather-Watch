@@ -124,3 +124,6 @@ yarn.lock
 
 # Ignore Python cache directories
 __pycache__/
+
+# Ignore node_modules directory
+node_modules/
