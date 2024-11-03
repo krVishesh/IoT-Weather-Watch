@@ -92,7 +92,29 @@ FLASK_DB_USER_PASSWORD=new_password
 FLASK_APP=Backend.app
 ```
 
-### 6. Run the Application
+### 6. Flask-Migrate Setup
+
+**Initialize Flask-Migrate:**
+
+After activating the virtual environment, run:
+
+```sh
+flask db init
+```
+
+**Create Migrations:**
+
+```sh
+flask db migrate -m "Initial migration."
+```
+
+**Apply Migrations:**
+
+```sh
+flask db upgrade
+```
+
+### 7. Run the Application
 
 **Set the FLASK_APP Environment Variable:**
 
@@ -106,7 +128,7 @@ export FLASK_APP=Backend.app
 flask run
 ```
 
-### 7. Verify the Database Tables
+### 8. Verify the Database Tables
 
 After running the application, verify that the tables have been created in your PostgreSQL database:
 
