@@ -15,8 +15,8 @@ This project is a Flask-based web application that uses PostgreSQL for the datab
 ### 1. Clone the Repository
 
 ```sh
-git clone https://github.com/yourusername/yourproject.git
-cd yourproject
+git clone https://github.com/krVishesh/IoT-Weather-Watch.git
+cd IoT-Weather-Watch
 ```
 
 ### 2. Set Up PostgreSQL
@@ -92,7 +92,7 @@ FLASK_DB_USER_PASSWORD=new_password
 FLASK_APP=Backend.app
 ```
 
-### 6. Flask-Migrate Setup
+### 6. Flask-Migrate Setup (Only for First Time Setup)
 
 **Initialize Flask-Migrate:**
 
