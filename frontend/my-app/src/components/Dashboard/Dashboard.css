@@ -8,8 +8,11 @@
 	margin-bottom: 20px;
 }
 
-.charts {
-	margin-top: 20px;
+.date-picker {
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+	margin-bottom: 20px;
 }
 
 .gauges {
@@ -29,4 +32,18 @@
 
 .gauge h3 {
 	margin-bottom: 10px;
+	color: #000000; /* Set text color to black */
+}
+
+.charts {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+.chart {
+	background-color: #f9f9f9;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
