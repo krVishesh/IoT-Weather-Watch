@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from datetime import datetime
 
 db = SQLAlchemy()
 
@@ -16,3 +17,4 @@ class SensorData(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     temperature = db.Column(db.Float, nullable=False)
     pressure = db.Column(db.Float, nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)

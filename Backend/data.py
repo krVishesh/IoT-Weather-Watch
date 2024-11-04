@@ -30,5 +30,5 @@ def insert_data():
 @login_required
 def get_data():
     data = SensorData.query.all()
-    result = [{"id": d.id, "temperature": d.temperature, "pressure": d.pressure} for d in data]
+    result = [{"id": d.id, "temperature": d.temperature, "pressure": d.pressure, "timestamp": d.timestamp} for d in data]
     return jsonify(result)
