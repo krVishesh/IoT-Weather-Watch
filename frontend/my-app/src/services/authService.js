@@ -1,3 +1,4 @@
+// frontend/my-app/src/services/authService.js
 const BASE_URL = "http://localhost:5000";
 
 const authService = {
@@ -9,6 +10,7 @@ const authService = {
 					"Content-Type": "application/json",
 				},
 				body: JSON.stringify({ username, password }),
+				credentials: "include", // Include credentials (cookies) in the request
 			});
 
 			if (!response.ok) {
@@ -36,7 +38,7 @@ const authService = {
 
 			if (!response.ok) {
 				const errorData = await response.json();
-				throw new Error(errorData.error || "Signup failed");
+				throw new Error(errorData.message || "Signup failed");
 			}
 
 			const data = await response.json();
@@ -51,6 +53,7 @@ const authService = {
 		try {
 			const response = await fetch(`${BASE_URL}/auth/logout`, {
 				method: "GET",
+				credentials: "include", // Include credentials (cookies) in the request
 			});
 
 			if (!response.ok) {
