@@ -1,18 +1,18 @@
 from flask import Flask, send_from_directory
-from Backend.auth import auth_blueprint, bcrypt, login_manager
+from Backend.auth import auth_blueprint
 from Backend.data import data_blueprint
 from Backend.models import db
+from Backend.extensions import bcrypt, login_manager  # Import extensions
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
-import logging
 from flask_migrate import Migrate
 
 # Load environment variables from .env file
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, supports_credentials=True)
 app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -35,11 +35,5 @@ def serve_index():
 def handle_react_routes(path):
     return send_from_directory('static', 'index.html')
 
-# Make sure you include /register as a catch-all to serve React routes
-@app.route('/register', methods=['GET'])
-@app.route('/login', methods=['GET'])
-def serve_react_routes():
-    return send_from_directory('static', 'index.html')
-
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run(debug=True)

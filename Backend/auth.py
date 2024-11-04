@@ -1,15 +1,12 @@
 from flask import Blueprint, request, jsonify
-from flask_bcrypt import Bcrypt
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user
 from dotenv import load_dotenv
 from Backend.models import db, UserData
-import os
+from Backend.extensions import bcrypt, login_manager  # Import extensions
 
 load_dotenv()
 
 auth_blueprint = Blueprint('auth', __name__)
-bcrypt = Bcrypt()
-login_manager = LoginManager()
 
 @login_manager.user_loader
 def load_user(user_id):

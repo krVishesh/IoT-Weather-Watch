@@ -141,3 +141,6 @@ Thumbs.db
 # Log files
 *.log
 *.log.*
+
+# Ignore cookies.txt
+cookies.txt
