@@ -2,13 +2,15 @@
 
 ## Overview
 
-This project is a Flask-based web application that uses PostgreSQL for the database and includes user authentication and data management features.
+This project is a Flask-based web application that uses PostgreSQL for the database and includes user authentication and data management features. It also includes a frontend developed with React.
 
 ## Prerequisites
 
 - Python 3.x
 - PostgreSQL
 - Virtual environment (optional but recommended)
+- Node.js
+- npm (Node Package Manager)
 
 ## Setup
 
@@ -70,11 +72,12 @@ python3 -m venv .venv
   ```
 
 - **On Windows:**
+
   ```sh
   .\venv\Scripts\activate
   ```
 
-### 4. Install Dependencies
+### 4. Install Flask Dependencies
 
 ```sh
 pip install -r requirements.txt
@@ -114,7 +117,7 @@ flask db migrate -m "Initial migration."
 flask db upgrade
 ```
 
-### 7. Run the Application
+### 7. Run the Flask Application
 
 **Set the FLASK_APP Environment Variable:**
 
@@ -136,10 +139,27 @@ After running the application, verify that the tables have been created in your 
 psql -h localhost -U iot_user -d iot_db
 ```
 
+### 9. Set Up the Frontend
+
+Navigate to the frontend directory and install the dependencies:
+
+```sh
+cd frontend/my-app
+npm install
+```
+
+### 10. Start the Development Server
+
+```sh
+npm start
+```
+
+This will run the app in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser. The page will reload when you make changes.
+
 ---
 
 ## Summary
 
-- The `README.md` file now includes detailed instructions for setting up PostgreSQL, installing dependencies, and running the Flask application.
-- It also includes a section on verifying the database tables and a list of API endpoints with example request bodies.
-- This comprehensive guide should help users set up and run your project with ease.
+- The `README.md` now includes instructions for setting up both the Flask backend and the React frontend.
+- It covers setting up PostgreSQL, creating a virtual environment, installing dependencies, running migrations, and starting both the backend and frontend servers.
+- This guide provides a complete setup to run your project seamlessly.
