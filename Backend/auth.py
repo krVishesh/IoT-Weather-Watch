@@ -23,16 +23,18 @@ def signup():
     email = data.get('email')
     password = data.get('password')
 
-    # Check if username already exists
+    # Check if username or email already exists
     if UserData.query.filter_by(username=username).first():
-        return jsonify({"message": "Username already exists"}), 400
+        return jsonify({"error": "Username already exists"}), 400
+    if UserData.query.filter_by(email=email).first():
+        return jsonify({"error": "Email already exists"}), 400
 
     hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
     new_user = UserData(username=username, email=email, password_hash=hashed_password)
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({"message": "User signed up successfully"}), 201
+    return jsonify({"message": "User created successfully"}), 201
 
 # Route to login a user
 @auth_blueprint.route('/login', methods=['POST'])
@@ -44,9 +46,9 @@ def login():
     user = UserData.query.filter_by(username=username).first()
     if user and bcrypt.check_password_hash(user.password_hash, password):
         login_user(user)
-        return jsonify({"message": "Login successful", "username": user.username}), 200
-    else:
-        return jsonify({"message": "Invalid credentials"}), 401
+        return jsonify({"message": "Logged in successfully"}), 200
+
+    return jsonify({"error": "Invalid credentials"}), 401
 
 # Route to log out a user
 @auth_blueprint.route('/logout', methods=['GET'])

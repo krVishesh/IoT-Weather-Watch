@@ -5,6 +5,7 @@ import { validateEmail, validatePassword } from '../../utils/validation';
 import Heading from '../Heading/Heading';
 
 const SignupPage = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -17,7 +18,7 @@ const SignupPage = () => {
       return;
     }
     try {
-      await authService.signup(email, password);
+      await authService.signup(username, email, password);
       // Redirect to login or another page
     } catch (err) {
       setError('Signup failed');
@@ -29,6 +30,14 @@ const SignupPage = () => {
       <div className="form-container">
         <Heading text="Signup" />
         <form onSubmit={handleSignup}>
+          <div>
+            <label>Username:</label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </div>
           <div>
             <label>Email:</label>
             <input
