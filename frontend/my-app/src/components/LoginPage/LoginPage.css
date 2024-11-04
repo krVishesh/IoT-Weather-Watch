@@ -16,17 +16,21 @@
 	text-align: center;
   }
   
-  .login-page form div {
+  .form-container h1 {
 	margin-bottom: 1rem;
   }
   
-  .login-page label {
-	display: block;
-	margin-bottom: 0.5rem;
-	font-weight: bold;
+  .form-container form div {
+	margin-bottom: 1rem;
   }
   
-  .login-page input {
+  .form-container form label {
+	display: block;
+	font-weight: bold; /* Make labels bold */
+	margin-bottom: 0.5rem; /* Increase spacing between label and textbox */
+  }
+  
+  .form-container form input {
 	width: 100%;
 	padding: 0.5rem;
 	border: 1px solid #ccc;
@@ -34,7 +38,7 @@
 	font-size: 1rem;
   }
   
-  .login-page button {
+  .form-container form button {
 	width: 100%;
 	padding: 0.75rem;
 	background-color: #007bff;
@@ -44,10 +48,15 @@
 	font-size: 1rem;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
+	margin-top: 1rem; /* Add margin-top to create spacing */
   }
   
-  .login-page button:hover {
+  .form-container form button:hover {
 	background-color: #0056b3;
+  }
+  
+  .form-container p {
+	margin-top: 1rem;
   }
   
   .error {
