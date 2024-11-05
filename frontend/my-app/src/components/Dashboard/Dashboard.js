@@ -113,6 +113,25 @@ const Dashboard = () => {
     }
   };
 
+  const downloadCSV = async () => {
+    try {
+      const formattedStartDate = startDate.toISOString().replace("Z", "");
+      const formattedEndDate = endDate.toISOString().replace("Z", "");
+      const response = await axios.get(
+        `http://localhost:5000/data/download?start=${formattedStartDate}&end=${formattedEndDate}`,
+        { responseType: "blob" }
+      );
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "data.csv");
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error downloading CSV:", error);
+    }
+  };
+
   return (
     <div className="dashboard">
       <div className="header">
@@ -121,42 +140,41 @@ const Dashboard = () => {
           Logout
         </button>
       </div>
+      <div className="date-picker">
+        <label>From:</label>
+        <DatePicker
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          selectsStart
+          startDate={startDate}
+          endDate={endDate}
+          dateFormat="yyyy-MM-dd"
+        />
+        <label>To:</label>
+        <DatePicker
+          selected={endDate}
+          onChange={(date) => setEndDate(date)}
+          selectsEnd
+          startDate={startDate}
+          endDate={endDate}
+          minDate={startDate}
+          dateFormat="yyyy-MM-dd"
+        />
+        <button className="download-button" onClick={downloadCSV}>
+          Download CSV
+        </button>
+      </div>
       <div className="content">
         <div className="charts">
-          <div className="date-picker">
-            <DatePicker
-              selected={startDate}
-              onChange={(date) => setStartDate(date)}
-              selectsStart
-              startDate={startDate}
-              endDate={endDate}
-              dateFormat="yyyy-MM-dd"
-            />
-            <DatePicker
-              selected={endDate}
-              onChange={(date) => setEndDate(date)}
-              selectsEnd
-              startDate={startDate}
-              endDate={endDate}
-              minDate={startDate}
-              dateFormat="yyyy-MM-dd"
-            />
-          </div>
           <div className="chart">
             <h3>Temperature Over Time</h3>
-            <ResponsiveContainer width="100%" height={450}>
+            <ResponsiveContainer width="100%" height={350}>
               <LineChart
                 data={data}
                 margin={{ top: 10, right: 30, left: 0, bottom: 50 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="timestamp"
-                  angle={-45}
-                  textAnchor="end"
-                  tick={{ fontSize: 10 }}
-                  interval={5}
-                />
+                <XAxis />
                 <YAxis domain={[-10, 50]} />
                 <Tooltip />
                 <Legend />
@@ -166,19 +184,13 @@ const Dashboard = () => {
           </div>
           <div className="chart">
             <h3>Pressure Over Time</h3>
-            <ResponsiveContainer width="100%" height={450}>
+            <ResponsiveContainer width="100%" height={350}>
               <LineChart
                 data={data}
                 margin={{ top: 10, right: 30, left: 0, bottom: 50 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis
-                  dataKey="timestamp"
-                  angle={-45}
-                  textAnchor="end"
-                  tick={{ fontSize: 10 }}
-                  interval={5}
-                />
+                <XAxis />
                 <YAxis domain={[750, 1200]} />
                 <Tooltip />
                 <Legend />
@@ -200,6 +212,7 @@ const Dashboard = () => {
               formatTextValue={(value) =>
                 `${latestData.temperature.toFixed(2)}°C`
               }
+              style={{ height: "350px" }} // Adjust the height to make the gauge bigger
             />
           </div>
           <div className="gauge">
@@ -214,6 +227,7 @@ const Dashboard = () => {
               formatTextValue={(value) =>
                 `${latestData.pressure.toFixed(2)} hPa`
               }
+              style={{ height: "350px" }} // Adjust the height to make the gauge bigger
             />
           </div>
         </div>
