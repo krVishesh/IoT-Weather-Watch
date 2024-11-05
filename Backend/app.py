@@ -24,8 +24,8 @@ db.init_app(app)
 migrate = Migrate(app, db)
 
 # Register the blueprints
-app.register_blueprint(auth_blueprint, url_prefix='/auth')
-app.register_blueprint(data_blueprint, url_prefix='/data')
+app.register_blueprint(auth_blueprint, url_prefix='/api/auth')
+app.register_blueprint(data_blueprint, url_prefix='/api/data')
 
 @app.route('/', methods=['GET'])
 def serve_index():

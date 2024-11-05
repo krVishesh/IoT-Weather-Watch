@@ -83,7 +83,7 @@ const Dashboard = () => {
 		try {
 			const formattedStartDate = startDate.toISOString().replace("Z", "");
 			const formattedEndDate = endDate.toISOString().replace("Z", "");
-			const requestUrl = `http://localhost:5000/data/range?start=${formattedStartDate}&end=${formattedEndDate}`;
+			const requestUrl = `http://localhost:5000/api/data/range?start=${formattedStartDate}&end=${formattedEndDate}`;
 			console.log("Request URL:", requestUrl); // Debug log
 			const response = await axios.get(requestUrl, {
 				withCredentials: true, // Include credentials (cookies) in the request
@@ -101,9 +101,12 @@ const Dashboard = () => {
 
 	const fetchLatestData = useCallback(async () => {
 		try {
-			const response = await axios.get("http://localhost:5000/data/latest", {
-				withCredentials: true, // Include credentials (cookies) in the request
-			});
+			const response = await axios.get(
+				"http://localhost:5000/api/data/latest",
+				{
+					withCredentials: true, // Include credentials (cookies) in the request
+				}
+			);
 			if (response.data) {
 				setLatestData(response.data);
 			}
@@ -133,7 +136,7 @@ const Dashboard = () => {
 			const formattedStartDate = startDate.toISOString().replace("Z", "");
 			const formattedEndDate = endDate.toISOString().replace("Z", "");
 			const response = await axios.get(
-				`http://localhost:5000/data/download?start=${formattedStartDate}&end=${formattedEndDate}`,
+				`http://localhost:5000/api/data/download?start=${formattedStartDate}&end=${formattedEndDate}`,
 				{
 					responseType: "blob",
 					withCredentials: true, // Include credentials (cookies) in the request
