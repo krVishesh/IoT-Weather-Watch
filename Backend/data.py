@@ -17,6 +17,19 @@ logger = logging.getLogger(__name__)
 
 data_blueprint = Blueprint('data', __name__)
 
+@data_blueprint.route('/latest', methods=['GET'])
+@login_required
+def get_latest_data():
+    latest_data = SensorData.query.order_by(SensorData.timestamp.desc()).first()
+    if latest_data:
+        return jsonify({
+            'timestamp': latest_data.timestamp,
+            'temperature': latest_data.temperature,
+            'pressure': latest_data.pressure
+        })
+    else:
+        return jsonify({'message': 'No data available'}), 404
+
 # Route to insert data into the database
 @data_blueprint.route('/insert', methods=['POST'])
 def insert_data():
@@ -96,11 +109,13 @@ def download_data():
     writer.writerow(['Timestamp', 'Temperature', 'Pressure'])
 
     for entry in data:
-        writer.writerow([entry.timestamp, entry.temperature, entry.pressure])
+        writer.writerow([str(entry.timestamp), str(entry.temperature), str(entry.pressure)])
 
     output.seek(0)
+    csv_bytes = output.getvalue().encode('utf-8')
+    output = io.BytesIO(csv_bytes)
 
-    return send_file(output, mimetype='text/csv', as_attachment=True, attachment_filename='data.csv')
+    return send_file(output, mimetype='text/csv', as_attachment=True, download_name='data.csv')
 
 app.register_blueprint(data_blueprint, url_prefix='/data')
 
