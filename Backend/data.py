@@ -116,8 +116,3 @@ def download_data():
     output = io.BytesIO(csv_bytes)
 
     return send_file(output, mimetype='text/csv', as_attachment=True, download_name='data.csv')
-
-app.register_blueprint(data_blueprint, url_prefix='/data')
-
-if __name__ == '__main__':
-    app.run(debug=True)

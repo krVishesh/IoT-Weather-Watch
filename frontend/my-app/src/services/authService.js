@@ -1,9 +1,9 @@
-const BASE_URL = "http://localhost:5000/api";
+import apiUrl from "../config";
 
 const authService = {
 	signup: async (username, password) => {
 		try {
-			const response = await fetch(`${BASE_URL}/auth/signup`, {
+			const response = await fetch(`${apiUrl}/api/auth/signup`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -27,7 +27,7 @@ const authService = {
 
 	login: async (username, password) => {
 		try {
-			const response = await fetch(`${BASE_URL}/auth/login`, {
+			const response = await fetch(`${apiUrl}/api/auth/login`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -51,7 +51,7 @@ const authService = {
 
 	logout: async () => {
 		try {
-			const response = await fetch(`${BASE_URL}/auth/logout`, {
+			const response = await fetch(`${apiUrl}/api/auth/logout`, {
 				method: "GET",
 				credentials: "include", // Include credentials (cookies) in the request
 			});

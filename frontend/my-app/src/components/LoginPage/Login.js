@@ -1,5 +1,7 @@
+// frontend/my-app/src/components/LoginPage/Login.js
 import React, { useState } from "react";
 import axios from "axios";
+import apiUrl from "../../config";
 
 const Login = ({ onLogin }) => {
 	const [username, setUsername] = useState("");
@@ -10,7 +12,7 @@ const Login = ({ onLogin }) => {
 		e.preventDefault();
 		try {
 			const response = await axios.post(
-				"http://localhost:5000/api/auth/login",
+				`${apiUrl}/api/auth/login`,
 				{
 					username,
 					password,

@@ -15,6 +15,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./Dashboard.css";
 import authService from "../../services/authService";
+import apiUrl from "../../config";
 
 const Dashboard = () => {
 	const [data, setData] = useState([]);
@@ -83,7 +84,7 @@ const Dashboard = () => {
 		try {
 			const formattedStartDate = startDate.toISOString().replace("Z", "");
 			const formattedEndDate = endDate.toISOString().replace("Z", "");
-			const requestUrl = `http://localhost:5000/api/data/range?start=${formattedStartDate}&end=${formattedEndDate}`;
+			const requestUrl = `${apiUrl}/api/data/range?start=${formattedStartDate}&end=${formattedEndDate}`;
 			console.log("Request URL:", requestUrl); // Debug log
 			const response = await axios.get(requestUrl, {
 				withCredentials: true, // Include credentials (cookies) in the request
@@ -101,12 +102,9 @@ const Dashboard = () => {
 
 	const fetchLatestData = useCallback(async () => {
 		try {
-			const response = await axios.get(
-				"http://localhost:5000/api/data/latest",
-				{
-					withCredentials: true, // Include credentials (cookies) in the request
-				}
-			);
+			const response = await axios.get(`${apiUrl}/api/data/latest`, {
+				withCredentials: true, // Include credentials (cookies) in the request
+			});
 			if (response.data) {
 				setLatestData(response.data);
 			}
@@ -136,7 +134,7 @@ const Dashboard = () => {
 			const formattedStartDate = startDate.toISOString().replace("Z", "");
 			const formattedEndDate = endDate.toISOString().replace("Z", "");
 			const response = await axios.get(
-				`http://localhost:5000/api/data/download?start=${formattedStartDate}&end=${formattedEndDate}`,
+				`${apiUrl}/api/data/download?start=${formattedStartDate}&end=${formattedEndDate}`,
 				{
 					responseType: "blob",
 					withCredentials: true, // Include credentials (cookies) in the request
