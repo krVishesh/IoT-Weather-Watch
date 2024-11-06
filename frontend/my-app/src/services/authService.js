@@ -1,14 +1,14 @@
 import apiUrl from "../config";
 
 const authService = {
-	signup: async (username, password) => {
+	signup: async (username, email, password) => {
 		try {
 			const response = await fetch(`${apiUrl}/api/auth/signup`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ username, password }),
+				body: JSON.stringify({ username, email, password }),
 				credentials: "include", // Include credentials (cookies) in the request
 			});
 
